@@ -338,7 +338,7 @@ async function filterPropertiesByKeyWord() {
         </div>
         <div class="d-flex border-top">
             <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>${propertSize}</small>
-            <small class="flex-fill text-center border-end py-2"><i class="fa fa-dollar-sign text-primary me-2"></i>${priceInWords}</small>
+            <small class="flex-fill text-center border-end py-2"><i>UGX</i>${priceInWords}</small>
             <small class="flex-fill text-center py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>${district}</small>
         </div>
     </div>
