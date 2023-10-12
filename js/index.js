@@ -12,7 +12,9 @@ const tab1Content = document.querySelector(".tab-1-content");
 const tab2Content = document.querySelector(".tab-2-content");
 const tab3Content = document.querySelector(".tab-3-content");
 const mainTabContainer = document.querySelector(".tab-content");
-const allTabContentContainers = document.querySelectorAll(".tab-content-container");
+const allTabContentContainers = document.querySelectorAll(
+  ".tab-content-container"
+);
 
 //switching between tabs upon click
 tabBtns.forEach((btn) => btn.addEventListener("click", toggleTabs));
@@ -45,10 +47,10 @@ const getEntryItems = async () => {
   });
 
   const filterPropertiesforSale = propertiesArray.filter((property) => {
-    return property.fields.forRentSaleOrBoth === "sale" || "Sale";
+    return property.fields.forRentSaleOrBoth.toLowerCase() === "sale";
   });
   const filterPropertiesforRent = propertiesArray.filter((property) => {
-    return property.fields.forRentSaleOrBoth === "rent" || "Sale";
+    return property.fields.forRentSaleOrBoth.toLowerCase() === "rent";
   });
 
   featuredProperties.push(filterfeaturedProperties);
@@ -90,7 +92,7 @@ const featuredItemsDOM = () => {
         <div class="capitalize bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">${propertyType}</div>
     </div>
     <div class="p-4 pb-0">
-        <h5 class="text-primary mb-3">UGX ${priceInFigures}</h5>
+        <h5 class="text-primary mb-3">UGX ${priceInFigures.toLocaleString()}</h5>
         <a class="capitalize d-block h5 mb-2">${propertyName}</a>
         <p><i class="capitalize fa fa-map-marker-alt text-primary me-2"></i> ${propertyLocation}</p>
     </div>
@@ -114,7 +116,7 @@ const featuredItemsDOM = () => {
   const browseMoreLink = document.createElement("div");
   browseMoreLink.classList.add("col-12,text-center,wow,fadeInUp");
   browseMoreLink.innerHTML = `
-  <a class="btn btn-primary py-3 px-5" href="">Browse More Property</a>
+  <a class="btn btn-primary py-3 px-5 btn-more-properties" href="/properties.html">Browse More Property</a>
   `;
 
   featuredItemsContainer.appendChild(browseMoreLink);
@@ -149,7 +151,7 @@ const forSaleItemsDOM = () => {
         <div class="capitalize bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">${propertyType}</div>
     </div>
     <div class="p-4 pb-0">
-        <h5 class="text-primary mb-3">UGX ${priceInFigures}</h5>
+        <h5 class="text-primary mb-3">UGX ${priceInFigures.toLocaleString()}</h5>
         <a class="capitalize d-block h5 mb-2" href="">${propertyName}</a>
         <p><i class="fa fa-map-marker-alt text-primary me-2"></i> ${propertyLocation}</p>
     </div>
@@ -173,7 +175,7 @@ const forSaleItemsDOM = () => {
   const browseMoreLink = document.createElement("div");
   browseMoreLink.classList.add("col-12,text-center,wow,fadeInUp");
   browseMoreLink.innerHTML = `
-  <a class="btn btn-primary py-3 px-5" href="">Browse More Property</a>
+  <a class="btn btn-primary py-3 px-5 btn-more-properties" href="/properties.html">Browse More Property</a>
   `;
   forSaleItemsContainer.appendChild(browseMoreLink);
 };
@@ -208,7 +210,7 @@ const forRentItemsDOM = () => {
         <div class="capitalize bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">${propertyType}</div>
     </div>
     <div class="p-4 pb-0">
-        <h5 class="text-primary mb-3">UGX ${priceInFigures}</h5>
+        <h5 class="text-primary mb-3">UGX ${priceInFigures.toLocaleString()}</h5>
         <a class="d-block h5 mb-2" href="">${propertyName}</a>
         <p><i class="fa fa-map-marker-alt text-primary me-2"></i> ${propertyLocation}</p>
     </div>
@@ -233,7 +235,7 @@ const forRentItemsDOM = () => {
   const browseMoreLink = document.createElement("div");
   browseMoreLink.classList.add("col-12,text-center,wow,fadeInUp");
   browseMoreLink.innerHTML = `
-  <a class="btn btn-primary py-3 px-5" href="">Browse More Property</a>
+  <a class="btn btn-primary py-3 px-5 btn-more-properties" href="/properties.html">Browse More Property</a>
   `;
   forRentItemsElement.appendChild(browseMoreLink);
 };
@@ -332,7 +334,7 @@ async function filterPropertiesByKeyWord() {
             <div class="capitalize bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">${propertyType}</div>
         </div>
         <div class="p-4 pb-0">
-            <h5 class="text-primary mb-3">UGX ${priceInFigures}</h5>
+            <h5 class="text-primary mb-3">UGX ${priceInFigures.toLocaleString()}</h5>
             <a class="d-block h5 mb-2" href="">${propertyName}</a>
             <p><i class="fa fa-map-marker-alt text-primary me-2"></i> ${propertyLocation}</p>
         </div>
@@ -388,7 +390,7 @@ async function getPropertyTypes() {
   const optionsHTML = allPropertyTypes.items
     .map((item) => {
       const propertyType = item.fields.propertType;
-      console.log(item);
+      // console.log(item);
       return `
     <option value="${propertyType}">${propertyType}</option>
     `;
@@ -402,6 +404,5 @@ async function getPropertyTypes() {
     optionsHTML;
 }
 getPropertyTypes();
-
 
 // var numbers = '0,1,2,3,4,5,6,7,8,9';
