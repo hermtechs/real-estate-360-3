@@ -22,3 +22,6 @@ const client = contentful.createClient({
 app.get("/", (req, res) => {
   res.render("index");
 });
+app.get("/view-property", (req, res) => {
+  res.render("view-property");
+});
