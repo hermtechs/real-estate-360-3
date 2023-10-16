@@ -1,27 +1,18 @@
 //product page and slider
-const imgs = document.querySelectorAll(".img-select a");
-const imgBtns = [...imgs];
-let imgId = 1;
+const currentImage = document.querySelector(".current-img");
 
-imgBtns.forEach((imgItem) => {
-  imgItem.addEventListener("click", (event) => {
-    event.preventDefault();
-    imgId = imgItem.dataset.id;
-    slideImage();
-  });
-});
-
-function slideImage() {
-  const displayWidth = document.querySelector(
-    ".img-showcase img:first-child"
-  ).clientWidth;
-
-  document.querySelector(".img-showcase").style.transform = `translateX(${
-    -(imgId - 1) * displayWidth
-  }px)`;
+function changeImage() {
+  const imgThumb = document.querySelectorAll(".img-thumb");
+  changeImage.src =
+    "https://community.upwork.com/t5/image/serverpage/image-id/34347i4B54E5EE7FE856D1/image-size/medium?v=v2";
+  imgThumb.forEach((img) => img.addEventListener("click", changeCurrentImgSrc));
 }
 
-window.addEventListener("resize", slideImage);
+function changeCurrentImgSrc(event) {
+  const clickedImgSrc = event.currentTarget.src;
+  //   console.log(clickedImgSrc);
+  currentImage.innerHTML = `<img src = '${clickedImgSrc}' alt = 'property for sale in Uganda'>`;
+}
 
 //contentful api
 
@@ -44,100 +35,34 @@ client.getEntry("3dO1rzc4IwInXbbWszvmrx").then((res) => {
     propertyDistrict,
     otherFiles,
     forRentSaleOrBoth,
-    propertyDescription,
+    // propertyDescription,
   } = clickedProperty;
-  console.log(propertyName);
+  console.log(propertSize);
 
-  //getting multiple assests aka images based on their ID
-  const allOherPhotos = (function getMultiplePhotoFiles(imagesMarkUp) {
-    const otherPhotos = otherFiles.map((asset) => {
-      // console.log(asset);
-      client.getAsset(`${asset.sys.id}`).then((item) => {
-        // console.log(item);
-        const imageUrl = `https:${item.fields.file.url}`;
-        // console.log(imageUrl);
-        return (imagesMarkUp = `
-    <img src = "${imageUrl}" alt = "${propertyName}">
-    `);
-      });
+  otherFiles.forEach((asset) => {
+    // console.log(asset);
+    let counter = 0;
+    counter++;
+    client.getAsset(`${asset.sys.id}`).then((item) => {
+      // console.log(item)
+      imageUrl = `https:${item.fields.file.url}`;
+      //   console.log(imageUrl);
+      const imageElements = `<img src = '${imageUrl}' alt = 'property for sale in Uganda'>`;
+      const imageSelectHTML = `
+      <div class = "img-item">
+      <a href = "#" data-id = "${counter}">
+        <img src = "${imageUrl}" class='img-thumb' alt = "property for sale in Uganda">
+      </a>
+    </div> `;
+      //   markUp.push(imageElements);
+      const imgShowCase = document.querySelector(".img-showcase");
+      const imgSelect = document.querySelector(".img-select");
+
+      imgShowCase.innerHTML = imageElements;
+      imgSelect.innerHTML += imageSelectHTML;
+      //   console.log(imgShowCase.innerHTML);
+      //   console.log(imgSelect.innerHTML);
+      changeImage();
     });
-    return otherPhotos;
-  })();
-  console.log(allOherPhotos);
-
-  const productMarkUp = `  <!-- card left -->
-  <div class = "product-imgs">
-    <div class = "img-display">
-      <div class = "img-showcase">
-     
-
-      </div>
-    </div>
-    <div class = "img-select">
-      <div class = "img-item">
-        <a href = "#" data-id = "1">
-          <img src = "/public/img/customary-img.jpg" alt = "shoe image">
-        </a>
-      </div>
-      <div class = "img-item">
-        <a href = "#" data-id = "2">
-          <img src = "/public/img/customary-img.jpg" alt = "shoe image">
-        </a>
-      </div>
-      <div class = "img-item">
-        <a href = "#" data-id = "3">
-          <img src = "/public/img/customary-img.jpg" alt = "shoe image">
-        </a>
-      </div>
-      <div class = "img-item">
-        <a href = "#" data-id = "4">
-          <img src = "/public/img/customary-img.jpg" alt = "shoe image">
-        </a>
-      </div>
-    </div>
-  </div>
-  <!-- card right -->
-  <div class = "product-content">
-    <!-- <h5 class = "product-title">nike shoes</h5> -->
-    <p class = "product-link">FOR ${forRentSaleOrBoth}</p>
-    <div class = "product-price">
-      <!-- <p class = "new-price">Price: <span>UGX 200M</span></p> -->
-    </div>
-
-    <div class = "product-detail">
-      <h2>about this Property: </h2>
-      <div class="p-4 pb-0">
-        <h5 class="text-primary mb-3">UGX ${priceInFigures.toLocaleString()}</h5>
-        <p class="-block h5 mb-2 text-primary">${propertyName}</p>
-        <p><i class="fa fa-map-marker-alt text-primary me-2"></i> ${propertyDistrict}</p>
-        <p class="me-2"> <i class="text-primary fa fa-ruler-combined me-2"></i><span> ${propertSize}</span></p>
-    </div>
-      <p>${productDescription}</p>
-      <ul>
-      </ul>
-    </div>
-
-    <div class = "purchase-info">
-      <a class = "btn">
-        Purchase Now
-      </a>
-    </div>
-
-    <div class = "social-links">
-      <p>Share At: </p>
-      <a href = "#">
-        <i class = "fab fa-facebook-f"></i>
-      </a>
-      <a href = "#">
-        <i class = "fab fa-twitter"></i>
-      </a>
-      <a href = "#">
-        <i class = "fab fa-instagram"></i>
-      </a>
-      <a href = "#">
-        <i class = "fab fa-whatsapp"></i>
-      </a>
-    </div>
-  </div>
-</div> `;
+  });
 });
