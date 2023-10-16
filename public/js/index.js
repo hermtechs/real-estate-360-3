@@ -82,12 +82,13 @@ const featuredItemsDOM = () => {
       } = item.fields;
       const photo = propertyPhoto.fields.file.url;
       const photoUrl = `https:${photo}`;
+      const entryID = item.sys.id;
 
       return `
 <div class="col-lg-4 col-md-6 wow fadeInUp featured-item" data-wow-delay="0.1s">
 <div class="property-item rounded overflow-hidden">
     <div class="position-relative overflow-hidden">
-        <a class="capitalize"><img class="img-fluid" src="${photoUrl}" alt="${propertyName}"></a>
+        <a class="capitalize" href="view-property/${entryID}"><img class="img-fluid" src="${photoUrl}" alt="${propertyName}"></a>
         <div class="capitalize bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For ${forRentSaleOrBoth}</div>
         <div class="capitalize bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">${propertyType}</div>
     </div>
@@ -141,12 +142,13 @@ const forSaleItemsDOM = () => {
       } = item.fields;
       const photo = propertyPhoto.fields.file.url;
       const photoUrl = `https:${photo}`;
+      const entryID = item.sys.id;
 
       return `
 <div class="col-lg-4 col-md-6 wow fadeInUp for-sale-item" data-wow-delay="0.1s">
 <div class="property-item rounded overflow-hidden">
     <div class="position-relative overflow-hidden">
-        <a class="capitalize"><img class="img-fluid" src="${photoUrl}" alt="${propertyName}"></a>
+        <a class="capitalize" href="view-property/${entryID}"><img class="img-fluid" src="${photoUrl}" alt="${propertyName}"></a>
         <div class="capitalize bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For ${forRentSaleOrBoth}</div>
         <div class="capitalize bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">${propertyType}</div>
     </div>
@@ -198,6 +200,8 @@ const forRentItemsDOM = () => {
         propertyLocation,
       } = item.fields;
 
+      const entryID = item.sys.id;
+
       const photo = propertyPhoto.fields.file.url;
       const photoUrl = `https:${photo}`;
 
@@ -205,7 +209,7 @@ const forRentItemsDOM = () => {
 <div class="col-lg-4 col-md-6 wow fadeInUp for-rent-item" data-wow-delay="0.1s">
 <div class="property-item rounded overflow-hidden">
     <div class="position-relative overflow-hidden">
-        <a class="capitalize"><img class="img-fluid" src="${photoUrl}" alt="${propertyName}"></a>
+        <a class="capitalize" href="view-property/${entryID}"><img class="img-fluid" src="${photoUrl}" alt="${propertyName}"></a>
         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For ${forRentSaleOrBoth}</div>
         <div class="capitalize bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">${propertyType}</div>
     </div>
@@ -406,5 +410,3 @@ async function getPropertyTypes() {
 getPropertyTypes();
 
 // var numbers = '0,1,2,3,4,5,6,7,8,9';
-
-
