@@ -2,7 +2,7 @@
 const currentImage = document.querySelector(".current-img");
 
 //getting product id from path
-const productID  = window.location.pathname.split("/")[2];
+const productID = window.location.pathname.split("/")[2];
 
 function changeImage() {
   const imgThumb = document.querySelectorAll(".img-thumb");
@@ -26,7 +26,7 @@ const client = contentful.createClient({
   accessToken: "bMmA_soXsOoFeFEKZPAD3vdHl0bgejSUc4DoJQgDUQ4",
 });
 
-client.getEntry("3dO1rzc4IwInXbbWszvmrx").then((res) => {
+client.getEntry(`${productID}`).then((res) => {
   const clickedProperty = res.fields;
   //   console.log(clickedProperty);
   const {
