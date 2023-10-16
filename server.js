@@ -43,6 +43,6 @@ getAllCategoryIds();
 app.get("/", (req, res) => {
   res.render("index");
 });
-// app.get("/view-property", (req, res) => {
-//   res.render("view-property");
-// });
+app.get("/view-property", (req, res) => {
+  res.render("view-property");
+});
