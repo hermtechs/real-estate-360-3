@@ -19,9 +19,30 @@ const client = contentful.createClient({
   accessToken: "bMmA_soXsOoFeFEKZPAD3vdHl0bgejSUc4DoJQgDUQ4",
 });
 
+const allPropertyIds = [];
+//get each propertty id and create a route with each item sys.id as the endpoint
+const getAllCategoryIds = async () => {
+  //getting entire categories array from contentful to render it to our views
+  await client.getEntries({ content_type: "properties" }).then((res) => {
+    const allItems = res.items;
+    allItems.forEach((item) => allPropertyIds.push(item.sys.id));
+  });
+  ``;
+  // createRouteBasedOnId();
+  allPropertyIds.forEach((categoryId) => {
+    console.log(categoryId);
+
+    app.get(`/view-property/${categoryId}`, (req, res) =>
+      res.render("view-property")
+    );
+    ``;
+  });
+};
+getAllCategoryIds();
+
 app.get("/", (req, res) => {
   res.render("index");
 });
-app.get("/view-property", (req, res) => {
-  res.render("view-property");
-});
+// app.get("/view-property", (req, res) => {
+//   res.render("view-property");
+// });

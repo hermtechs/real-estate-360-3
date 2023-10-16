@@ -1,6 +1,9 @@
 //product page and slider
 const currentImage = document.querySelector(".current-img");
 
+//getting product id from path
+const productID  = window.location.pathname.split("/")[2];
+
 function changeImage() {
   const imgThumb = document.querySelectorAll(".img-thumb");
   changeImage.src =
