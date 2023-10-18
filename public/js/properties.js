@@ -162,7 +162,6 @@ const forSaleItemsDOM = () => {
       </div>
   </div>
   </div>
-  
   `;
     })
     .join("");

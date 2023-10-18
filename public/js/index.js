@@ -239,7 +239,7 @@ const forRentItemsDOM = () => {
   const browseMoreLink = document.createElement("div");
   browseMoreLink.classList.add("col-12,text-center,wow,fadeInUp");
   browseMoreLink.innerHTML = `
-  <a class="btn btn-primary py-3 px-5 btn-more-properties" href="/properties.html">Browse More Property</a>
+  <a class="btn btn-primary py-3 px-5 btn-more-properties" href="/properties">Browse More Property</a>
   `;
   forRentItemsElement.appendChild(browseMoreLink);
 };
@@ -253,6 +253,7 @@ const getPropertyCategories = async () => {
   const allPropertyHTML = allPropertyCategories.items
     .map((item) => {
       // return item;
+      console.log(item);
       const {
         propertType,
         noOfPropertiesAvailable,
@@ -262,7 +263,7 @@ const getPropertyCategories = async () => {
 
       // return imageUrl;
       return `<div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-    <a class="cat-item d-block bg-light text-center rounded p-3" href="">
+    <a href='categories/${item.sys.id}' class="cat-item d-block bg-light text-center rounded p-3" href="">
         <div class="rounded p-4">
             <div class="icon mb-3">
                 <img class="img-fluid" src="${imageUrl}" alt="Icon">
@@ -367,7 +368,7 @@ async function filterPropertiesByKeyWord() {
 
 searchButton.addEventListener("click", filterPropertiesByKeyWord);
 
-/*generating options values from contentful for SEARCH PROPERTIES section*/
+//generating options values from contentful for SEARCH PROPERTIES section;
 //cities or districts
 async function getCities() {
   const allCities = await client.getEntries({ content_type: "citiesOptions" });

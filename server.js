@@ -20,6 +20,7 @@ const client = contentful.createClient({
 });
 
 const allPropertyIds = [];
+const allPropertyListingIds = [];
 //get each propertty id and create a route with each item sys.id as the endpoint
 const getAllCategoryIds = async () => {
   //getting entire categories array from contentful to render it to our views
@@ -30,7 +31,7 @@ const getAllCategoryIds = async () => {
   ``;
   // createRouteBasedOnId();
   allPropertyIds.forEach((categoryId) => {
-    console.log(categoryId);
+    // console.log(categoryId);
 
     app.get(`/view-property/${categoryId}`, (req, res) =>
       res.render("view-property")
@@ -39,6 +40,27 @@ const getAllCategoryIds = async () => {
   });
 };
 getAllCategoryIds();
+
+//property categories -getting their ID's and making get requests based on that
+const getAllPropertyListingIds = async () => {
+  //getting entire categories array from contentful to render it to our views
+  await client
+    .getEntries({ content_type: "propertyCategories" })
+    .then((res) => {
+      const allItems = res.items;
+      allItems.forEach((item) => allPropertyListingIds.push(item.sys.id));
+    });
+
+  // createRouteBasedOnId();
+  allPropertyListingIds.forEach((categoryId) => {
+    // console.log(categoryId);
+
+    app.get(`/categories/${categoryId}`, (req, res) =>
+      res.render("categories")
+    );
+  });
+};
+getAllPropertyListingIds();
 
 app.get("/", (req, res) => {
   res.render("index");
