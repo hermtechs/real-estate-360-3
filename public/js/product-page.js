@@ -84,7 +84,7 @@ client.getEntry(`${productID}`).then((res) => {
       changeImage();
     });
   });
-  purchaseBtn.href = `https://wa.me/97470923424?text=Hello,%20I%20would%20like%20to%20${
+  purchaseBtn.href = `https://wa.me/256765220922?text=Hello,%20I%20would%20like%20to%20${
     forRentSaleOrBoth.toLowerCase() === "rent" ? "rent" : "buy"
   }%20this%20property%20https://realestate360.com/view-property/${productID}`;
 });

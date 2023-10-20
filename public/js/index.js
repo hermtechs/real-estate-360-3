@@ -117,7 +117,7 @@ const featuredItemsDOM = () => {
   const browseMoreLink = document.createElement("div");
   browseMoreLink.classList.add("col-12,text-center,wow,fadeInUp");
   browseMoreLink.innerHTML = `
-  <a class="btn btn-primary py-3 px-5 btn-more-properties" href="/properties.html">Browse More Property</a>
+  <a class="btn btn-primary py-3 px-5 btn-more-properties" href="/allProperties">Browse More Property</a>
   `;
 
   featuredItemsContainer.appendChild(browseMoreLink);
@@ -177,7 +177,7 @@ const forSaleItemsDOM = () => {
   const browseMoreLink = document.createElement("div");
   browseMoreLink.classList.add("col-12,text-center,wow,fadeInUp");
   browseMoreLink.innerHTML = `
-  <a class="btn btn-primary py-3 px-5 btn-more-properties" href="/properties.html">Browse More Property</a>
+  <a class="btn btn-primary py-3 px-5 btn-more-properties" href="/allProperties">Browse More Property</a>
   `;
   forSaleItemsContainer.appendChild(browseMoreLink);
 };
@@ -239,7 +239,7 @@ const forRentItemsDOM = () => {
   const browseMoreLink = document.createElement("div");
   browseMoreLink.classList.add("col-12,text-center,wow,fadeInUp");
   browseMoreLink.innerHTML = `
-  <a class="btn btn-primary py-3 px-5 btn-more-properties" href="/properties">Browse More Property</a>
+  <a class="btn btn-primary py-3 px-5 btn-more-properties" href="/allProperties">Browse More Property</a>
   `;
   forRentItemsElement.appendChild(browseMoreLink);
 };
