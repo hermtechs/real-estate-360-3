@@ -15,6 +15,9 @@ const mainTabContainer = document.querySelector(".tab-content");
 const allTabContentContainers = document.querySelectorAll(
   ".tab-content-container"
 );
+const recentBlogsElement = document.querySelector(".recent-blogs-container");
+const mainBlogPost = document.querySelector(".main-blog-post");
+const mainBlogPostTitle = document.querySelector(".main-blog-title");
 
 //switching between tabs upon click
 tabBtns.forEach((btn) => btn.addEventListener("click", toggleTabs));
@@ -252,8 +255,6 @@ const getPropertyCategories = async () => {
   // console.log(allPropertyCategories.items);
   const allPropertyHTML = allPropertyCategories.items
     .map((item) => {
-      // return item;
-      console.log(item);
       const {
         propertType,
         noOfPropertiesAvailable,
@@ -410,4 +411,72 @@ async function getPropertyTypes() {
 }
 getPropertyTypes();
 
-// var numbers = '0,1,2,3,4,5,6,7,8,9';
+//  BLOG POSTS SECTION
+
+//getting recent blogs from contentful
+const getRecentBlogs = async () => {
+  await client.getEntries({ content_type: "blogposts" }).then((res) => {
+    const blogPosts = JSON.parse(JSON.stringify(res.items));
+    /*We're parsing our object as JSON to call all getters. 
+    We're using slice(0,6) to limit length to only 5 blogs
+    */
+
+    const blogPostHTML = blogPosts
+      .map((blog) => {
+        //   console.log(blog);
+
+        const { blogTitle, publicationDate, blogPostPhoto } = blog.fields;
+
+        const imgUrl = `https:${blogPostPhoto.fields.file.url}`;
+
+        const blogPostID = blog.sys.id;
+
+        return `
+    <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
+    <img class="img-fluid" src="${imgUrl}" style="width: 110px; height: 110px;" alt="${blogTitle}">
+    <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
+        <div class="mb-2">
+            <a class="text-body" href="blog/${blogPostID}"><small>${publicationDate}}</small></a>
+        </div>
+        <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="blog/${blogPostID}">${blogTitle}.</a>
+    </div>
+</div> 
+    `;
+      })
+      // .slice(1, 6)
+      .join("");
+
+    recentBlogsElement.innerHTML = blogPostHTML;
+  });
+};
+getRecentBlogs();
+
+const createMainBlogPost = async () => {
+  await client.getEntries({ content_type: "blogposts" }).then((res) => {
+    const blogPost = JSON.parse(JSON.stringify(res.items[0]));
+    const { blogTitle, publicationDate, blogPostPhoto } = blogPost.fields;
+
+    const imgUrl = `https:${blogPostPhoto.fields.file.url}`;
+
+    const blogPostID = blogPost.sys.id;
+
+    mainBlogPost.innerHTML = `
+    
+    <div class="row col-lg mx-0 mb-3">
+    <div class="col-md-6 h-100 px-0">
+        <img class="img-fluid h-100" src="${imgUrl}" style="object-fit: cover; width: 700px; height: 400px;">
+    </div>
+    <div class="col-md-6 d-flex flex-column border bg-white h-100 px-0">
+        <div class="mt-auto p-4">
+            <div class="mb-2">
+                <a class="text-body" href="/blog/${blogPostID}"><small>${publicationDate}</small></a>
+            </div>
+            <a class="h1 d-block mb-3 main-blog  text-uppercase font-weight-bold" href="/blog/${blogPostID}">${blogTitle}</a>
+          
+        </div>
+    </div>
+</div>
+    `;
+  });
+};
+createMainBlogPost();

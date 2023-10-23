@@ -12,7 +12,7 @@ const propertyDescriptionText = document.querySelector(".property-description");
 //getting product id from path
 
 const productID = window.location.pathname.split("/")[2];
-console.log(productID);
+// console.log(productID);
 
 function changeImage() {
   const imgThumb = document.querySelectorAll(".img-thumb");
